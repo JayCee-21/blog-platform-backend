@@ -78,7 +78,7 @@ export const deletePost =async(req,res) => {
     const { id } = req.params
 
     try {
-        const post = await Post.findById(id)
+        const post = await Post.findByIdAndDelete(id)
         if(!post) {
             return res.status(400).json({message: "Post not found"})
         }
@@ -88,7 +88,6 @@ export const deletePost =async(req,res) => {
             return res.status(404).json({message: "Not Authorized to delete this post"})
         }
 
-        await post.save()
         res.status(200).json({message: "Post deleted successfully"})
 
     } catch (error) {

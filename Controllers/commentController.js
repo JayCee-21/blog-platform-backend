@@ -45,7 +45,7 @@ export const deleteComment = async(req, res) => {
     const commentId = req.params.commentId
 
     try {
-        const comment = await Comment.findById(commentId)
+        const comment = await Comment.findByIdAndDelete(commentId)
         if(!comment) {
             return res.status(404).json({message: "Comment not found"})
         }
@@ -55,7 +55,6 @@ export const deleteComment = async(req, res) => {
             return res.status(403).json({message: "Not Authorised to delete this comment"})
         }
 
-        await Comment.findByIdAndDelete(commentId)
         res.status(200).json({message: "Comment deleted successfully"})
 
     } catch (error) {
